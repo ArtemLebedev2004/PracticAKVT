@@ -1,22 +1,182 @@
+/* Общие стили */
 * {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-}
-
-body {
     font-family: 'Montserrat Alternates', sans-serif;
 }
 
-.container {
-    width: 80%;
-    margin: 0 auto;
+body {
+    background-color: #CCDAFF;
 }
 
+.container {
+    width: 1264px;
+    margin: 0 auto;
+    margin-top: 26px;
+    height: 91px;
+}
+
+/* Стили меню */
 .menu {
-    display: flex;
+    display: flex;    
 }
 
 .logo {
     background-color: #ABC2FF;
+    padding: 15px;
+    width: 104px;
+    border-radius: 20px;
+}
+
+.logo_img {
+    width: 75px;
+}
+
+.search {
+    background-color: #ABC2FF;
+    width: 865px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    margin: 0 43px;
+}
+
+.search_place {
+    border: none;
+    width: 788px;
+    height: 60px;
+    background-color: #CCDAFF;
+    border-radius: 15px;
+    padding-left: 15px;
+    font-size: 18px;
+}
+
+.search_place:focus {
+    outline: none;
+}
+
+.magnificent_img {
+    width: 33px;
+}
+
+
+
+.sign_up, .sign_in {
+    width: 160px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 9px 0;
+}
+
+.sign_in {
+
+}
+
+.sign_up {
+    margin-top: 8px;
+    margin-left: 46px;
+
+}
+
+
+/* Стили для слайдера */
+.slider {
+    width: 1536px;
+    padding: 29px 0;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.right_arrow, .left_arrow {
+    width: 35px;
+    height: 48px;
+}
+
+.back_slide, .next_slide {
+    width: 105px;
+    height: 511px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: rgb(255, 255, 255, 0);
+    transition: all 0.5s ease;
+}
+
+.back_slide:hover, .next_slide:hover {
+    background-color: rgb(255, 255, 255, 0.5);
+}
+
+.slides {
+    width: 1260px;
+}
+
+.slides img {
+    width: 100%;
+    border-radius: 20px;
+    animation: opacity 1s ease;
+}
+
+.points {
+    display: flex;
+    width: 100px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 29px;
+}
+
+.points div {
+    width: 15px;
+}
+
+.points div:nth-child(2), .points div:nth-child(3) {
+    margin-left: 23px;
+}
+
+.points img {
+    width: 100%;
+}
+
+.points img:hover {
+    cursor: pointer;
+}
+
+.gallery {
+    display: flex;
+}
+
+.gallery div {
+    width: 350px;
+    height: 731px;
+    background-image: url("../icons/Group9.png");
+    background-size: cover;
+}
+
+
+
+.hide {
+    display: none;
+}
+
+@keyframes opacity {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
