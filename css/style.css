@@ -8,19 +8,19 @@
 
 body {
     background-color: #CCDAFF;
+    height: 100vh;
 }
 
 .container {
-    width: 1264px;
-    margin: 0 auto;
-    margin-top: 26px;
-    height: 91px;
+    margin: 29px auto;
+    width: 87%;
+    height: 100%;
+    display: flex;    
+    justify-content: center;
+    align-items: center;
 }
 
 /* Стили меню */
-.menu {
-    display: flex;    
-}
 
 .logo {
     background-color: #ABC2FF;
@@ -35,7 +35,8 @@ body {
 
 .search {
     background-color: #ABC2FF;
-    width: 865px;
+    width: 68%;
+    height: 91px;
     border-radius: 20px;
     display: flex;
     justify-content: space-between;
@@ -46,7 +47,7 @@ body {
 
 .search_place {
     border: none;
-    width: 788px;
+    width: 95%;
     height: 60px;
     background-color: #CCDAFF;
     border-radius: 15px;
@@ -61,8 +62,6 @@ body {
 .magnificent_img {
     width: 33px;
 }
-
-
 
 .sign_up, .sign_in {
     width: 160px;
@@ -82,15 +81,13 @@ body {
 
 .sign_up {
     margin-top: 8px;
-    margin-left: 46px;
 
 }
 
 
 /* Стили для слайдера */
 .slider {
-    width: 1536px;
-    padding: 29px 0;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -104,8 +101,8 @@ body {
 }
 
 .back_slide, .next_slide {
-    width: 105px;
-    height: 511px;
+    width: 7%;
+    height: 508px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -121,13 +118,23 @@ body {
 }
 
 .slides {
-    width: 1260px;
+    width: 82%;
 }
 
-.slides img {
+.slides div {
     width: 100%;
+    height: 502px;
+    margin: 0 auto;
     border-radius: 20px;
-    animation: opacity 1s ease;
+    animation: opacity 1s ease; 
+}
+
+.first {
+    background: url("../img/Фон для первого слайда.png");
+}
+
+.second, .third {
+    background-image: url("../img/Фон для 2 и 3 слайда.png");    
 }
 
 .points {
@@ -154,18 +161,27 @@ body {
     cursor: pointer;
 }
 
-.gallery {
-    display: flex;
-}
-
-.gallery div {
+.books_item {
     width: 350px;
     height: 731px;
     background-image: url("../icons/Group9.png");
     background-size: cover;
+    overflow: auto;
 }
 
+.books_item_img {
+    border: 20px solid #CCDAFF;
+    width: 288px;
+    height: 410px;
+    margin: 42px auto 0 auto;
+    border-radius: 20px;
 
+}
+
+.books_item_img img {
+    width: 100%;
+    height: 100%;
+}
 
 .hide {
     display: none;
