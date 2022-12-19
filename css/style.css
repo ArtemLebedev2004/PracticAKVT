@@ -6,8 +6,9 @@
     font-family: 'Montserrat Alternates', sans-serif;
 }
 
-body {
+body, main {
     background-color: #CCDAFF;
+    width: 100%;
     height: 100vh;
 }
 
@@ -25,27 +26,35 @@ body::-webkit-scrollbar {
 
 /* СТИЛИ МЕНЮ */
 
+header {
+    position: relative;
+
+    padding: 29px 0;
+    height: 21.5%;
+}
+
 /* Стили ко всему блоку меню */
 .menu {
-    margin: 29px auto;
-    width: 87%;
+    margin: auto;
+    width: 82%;
     height: 100%;
     display: flex;    
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
 /* Стили к блоку главного лого */
 .menu .main_logo {
     background-color: #ABC2FF;
-    padding: 15px;
-    width: 104px;
+    padding: 1.2%;
+    width: 9.5%;
+    height: 100%;
     border-radius: 20px;
 }
 
 /* Стили к самой иконке главного лого*/
 .menu .main_logo .main_logo_img {
-    width: 75px;
+    width: 100%;
     transform: none;
     transition: all 0.5s ease;
 }
@@ -60,23 +69,25 @@ body::-webkit-scrollbar {
 .menu .search {
     position: relative;
     background-color: #ABC2FF;
-    width: 68%;
-    height: 91px;
+    width: 78%;
+    height: 100%;
     border-radius: 20px;
     display: flex;
     justify-content:space-between;
     align-items: center;
     flex-wrap: wrap;
     top: 0;
-    padding: 0 15px;
-    margin: 0 43px;
+    right: 0;
+    left: 0;
+    margin: 0 40px;
+    padding: 0.2% 1.3%;
     z-index: 0;
 }
 
 /* Стили к блоку с input */
 .menu .search .input_search {
     width: 95%;
-    height: 60px;
+    height: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,7 +101,7 @@ body::-webkit-scrollbar {
     background-color: #CCDAFF;
     border-radius: 15px;
     padding-left: 15px;
-    font-size: 18px;
+    font-size: 1.2vw;
 }
 
 .menu .search .input_search input.search_place:focus {
@@ -251,8 +262,17 @@ body::-webkit-scrollbar {
 }
 
 .signs {
-    width: 160px;
-    height: 91px;
+    width: 15%;
+    height: 100%;
+}
+
+.signs .signs_buttons {
+    height: 100%;
+}
+
+.signs .signs_buttons div {
+    height: 45.5%;
+    font-size: 1.2vw;
 }
 
 .personal {
@@ -284,11 +304,12 @@ body::-webkit-scrollbar {
 }
 
 .personal_text {
-    font-size: 20px;
+    font-size: 1.2vw;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
 .personal_arrow {
@@ -371,6 +392,7 @@ body::-webkit-scrollbar {
 /* Стили для слайдера */
 .slider {
     width: 100%;
+    height: 70%;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -379,13 +401,13 @@ body::-webkit-scrollbar {
 }
 
 .right_arrow, .left_arrow {
-    width: 35px;
-    height: 48px;
+    width: 40%;
+    height: 10%;
 }
 
 .back_slide, .next_slide {
     width: 7%;
-    height: 508px;
+    height: 100%;
     margin: 0 auto;
     display: flex;
     justify-content: center;
@@ -402,18 +424,20 @@ body::-webkit-scrollbar {
 
 .slides {
     width: 82%;
+    height: 100%;
 }
 
 .slides div {
     width: 100%;
-    height: 502px;
+    height: 100%;
     margin: 0 auto;
     border-radius: 20px;
     animation: opacity 1s ease; 
 }
 
 .slides div img {
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
     border-radius: 20px
 }
 
@@ -430,7 +454,7 @@ body::-webkit-scrollbar {
     width: 100px;
     justify-content: center;
     align-items: center;
-    padding-top: 29px;
+    padding-top: 25px;
 }
 
 .points div {
@@ -454,8 +478,8 @@ body::-webkit-scrollbar {
 
 .gallery {
     width: 82%;
-    max-width: 1250px;
     margin: 23px auto;
+    margin-top: 68px;
 }
 
 .gallery .books {
@@ -550,12 +574,14 @@ body::-webkit-scrollbar {
 
 .books_item {
     width: 350px;
-    height: 731px;
-    background-image: url("../icons/Group9.png");
-    background-size: cover;
-    overflow: auto;
+    min-height: 100%;
+    background-color: white;
+    /* background-image: url("../icons/Group9.png");
+    background-size: 100% 100%; */
     margin-top: 40px;
     animation: opacity 0.8s ease;
+    padding-bottom: 30px;
+    border-radius: 20px;
 }
 
 .books_item_img {
@@ -572,6 +598,50 @@ body::-webkit-scrollbar {
     height: 100%;
     border-radius: 20px;
 
+}
+
+.book_info {
+    min-height: 17%;
+}
+
+.book_info div {
+    width: 84%;
+    margin: auto;
+    text-align: center;
+    margin-top: 12px;
+}
+
+
+.book_info div.name_of_book {
+    font-size: 1.4vw;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book_info div.genre_of_book {
+    color: grey;
+}
+
+.books_item .buts {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+    bottom: 0;
+}
+
+.books_item .buts div{
+    width: 84%;
+    text-align: center;
+    margin: auto;
+    background-color:#CCDAFF;
+    border-radius: 20px;
+    font-size: 1.3vw;
+    padding: 10px 0;
+    margin-top: 15px;
 }
 
 .modal {
@@ -641,6 +711,31 @@ body::-webkit-scrollbar {
 
 
 
+.modal_delete_book {
+    height: 93.2%;
+}
+
+.modal_delete_book form {
+    width: 100%;
+    height: 100%;
+    background-color: #CCDAFF;
+    border-radius: 20px;
+    overflow: auto;
+}
+
+.modal_delete_book form input {
+    margin-bottom: 20px;
+}
+
+.modal_delete_book form h1 {
+    margin-bottom: 25px;
+}
+
+.modal_delete_book form button {
+    margin-bottom: 35px;
+}
+
+
 .modal_sign_in {
     height: 60%;
 }
@@ -680,10 +775,12 @@ form h1 {
     text-align: center;
     margin: 22px auto;
     word-break: break-all;
+    font-size: 2.5vw;
 }
 
 form div.form_item {
     width: 100%;
+    height: 14%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -691,8 +788,13 @@ form div.form_item {
     margin-bottom: 20px;
 }
 
+form.form_sign_up div.form_item  {
+    height: 7.6%;
+}
+
 form div.warning {
     width: 80%;
+    height: 20%;
     margin-top: 5px;
     color:#f95656;
 }
@@ -702,7 +804,7 @@ form input{
     border: none;
     outline: 0;
     width: 80%;
-    height:50px;
+    height: 100%;
     margin: 0 auto;
     padding-left: 15px;
     background-color: #ffffff;
@@ -820,7 +922,7 @@ form .text span:hover {
     width: 25px;
 }
 
-.book_card {
+.book_card, .user_card {
     position: absolute;
     margin: auto;
     top: 0;
@@ -848,7 +950,7 @@ align-items: start;
     border-radius: 20px;
 }
 
-.book_card_info {
+.book_card_info, .user_card_info {
     background-color:#CCDAFF;
 
     width: 100%;
@@ -902,5 +1004,55 @@ align-items: center;
 
     to {
         width: 80%;
+    }
+}
+
+
+
+@media (max-width: 1380px) {
+    .menu .main_logo {
+        background-color: #ABC2FF;
+        padding: 1.2%;
+        width: 11%;
+        height: 100%;
+        border-radius: 20px;
+    }
+
+    .gallery {
+        width: 82%;
+        max-width: 1250px;
+        margin: 23px auto;
+        margin-top: 75px;
+    }
+}
+
+
+@media (max-width: 1940px) and (min-width: 1900px) {
+    header {
+        padding: 46px 0;
+    }
+    
+    .menu .main_logo {
+        background-color: #ABC2FF;
+        padding: 1.2%;
+        width: 11%;
+        height: 100%;
+        border-radius: 20px;
+    }
+
+    .gallery {
+        width: 82%;
+        margin: 23px auto;
+        margin-top: 75px;
+    }
+
+    .slider {
+        width: 100%;
+        height: 73%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
     }
 }

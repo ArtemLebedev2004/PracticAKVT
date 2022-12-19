@@ -1,9 +1,10 @@
 $(document).ready(function (){
+    var result = $('.js');
+
     $('.form_sign_up').on('submit', function (e){
         e.preventDefault();
         let formData = new FormData(this);
 
-        let result = $('.js');
         $.ajax({
             type: "POST",
             url: $(this).attr('action'),
@@ -12,19 +13,17 @@ $(document).ready(function (){
             contentType: false,
             processData: false,
             success: function(msg){
-				result.html(msg);
-				result.fadeIn();
-			}
+                result.html(msg);
+            }
         })
-        // .done(function(msg) {
-        //     alert( "Data Saved: " + msg );
-        // });
-
-        // $('input.title').val("");
-        // $('textarea.content').val("");
     })
+});
 
-	$('.form_add_book').on('submit', function (e){
+
+$(document).ready(function (){
+    var result = $('.js');
+
+    $('.form_sign_in').on('submit', function (e){
         e.preventDefault();
         let formData = new FormData(this);
 
@@ -32,130 +31,92 @@ $(document).ready(function (){
             type: "POST",
             url: $(this).attr('action'),
             data: formData,
-            cache: false,
+            cache : false,
             contentType: false,
-            processData: false
-        })
-        .done(function( msg ) {
-            alert( "Data Saved: " + msg );
-        });
-
-        // $('input.title').val("");
-        // $('textarea.content').val("");
-    })
-
-	$('.form_update_book').on('submit', function (e){
-        e.preventDefault();
-        let formData = new FormData(this);
-
-        $.ajax({
-            type: "POST",
-            url: $(this).attr('action'),
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false
-        })
-        .done(function( msg ) {
-            alert( "Data Saved: " + msg );
-        });
-
-        // $('input.title').val("");
-        // $('textarea.content').val("");
-    })
-
-    let resultSigns = $('.js');
-	
-	$('.form_sign_in').on('submit', function (e){
-        e.preventDefault();
-        let formData = new FormData(this);
-
-        $.ajax({
-            type: "POST",
-            url: $(this).attr('action'),
-            data: formData,
-            cache: false,
-			contentType: false,
             processData: false,
-			success: function(msg){
-				resultSigns.html(msg);
-				resultSigns.fadeIn();
-			}
+            success: function(msg){
+                result.html(msg);
+                
+            }
         })
-
-        // $('input.title').val("");
-        // $('textarea.content').val("");
+        .done(function( msg ) {
+            alert( "Data Saved: " + msg );
+        });
     })
+});
 
-
-    let $resultSearch = $('.result_search');
+$(document).ready(function() {	
+	var result = $('.result_search');
 	
 	$('.search_place').on('keyup', function(){
 		var search = $(this).val();
-		search = search.replace(/\s/g, "");
-		if (search != ''){
-			$resultSearch.removeClass('hide');
+		if ((search != '') && (search.length > 1)){
 			$.ajax({
 				type: "POST",
-				url: "some2.php",
-				data: {'search': search},
+				url: "controller.php",
+				data: {'search' : search},
+                cache: false,
 				success: function(msg){
-					$resultSearch.html(msg);
+					result.html(msg);
 					if(msg != ''){	
-						$resultSearch.fadeIn();
-					} else {
-						$resultSearch.fadeOut(100);
-						$resultSearch.addClass('hide');
+						result.removeClass('hide');
 					}
 				}
-			});
+			})
+            .done(function( msg ) {
+                alert( "Data Saved: " + msg );
+            });
 		 } else {
-			$resultSearch.html('');
-			$resultSearch.addClass('hide');
-			$resultSearch.fadeOut(100);
+			// result.html('');
+			// result.fadeOut(100);
 		 }
 	});
- 
-	// $(document).on('click', function(e){
-	// 	if (!$(e.target).closest('.search').length){
-	// 		$resultSearch.html('');
-	// 		$resultSearch.addClass('hide');
-	// 		$resultSearch.fadeOut(100);
-	// 	}
-	// });
-	
-	// $(document).on('click', '.search_result-name a', function(){
-	// 	$('#search').val($(this).text());
-	// 	$resultSearch.fadeOut(100);
-	// 	$resultSearch.addClass('hide');
-	// 	return false;
-	// });
-	
-	// $(document).on('click', function(e){
-	// 	if (!$(e.target).closest('.search').length){
-	// 		$resultSearch.html('');
-	// 		$resultSearch.fadeOut(100);
-	// 		$resultSearch.addClass('hide');
-	// 	}
-	// });
 })
-    // let result = $('.result_search');
-    // $('.form_search').on('keyup', function (e){
-    //     e.preventDefault();
-    //     let formData = new FormData(this);
-    //     console.log('w');
-        
-    //         $.ajax({
-    //             type: "POST",
-    //             url: $(this).attr('action'),
-    //             data: formData,
-    //             cache: false,
-    //             contentType: false,
-    //             processData: false
-    //         })
-    //         result.removeClass('hide');
-        
-    // })
-//     $(document).ready(function() {
-    
+
+$(document).ready(function() {	
+	let result = $('.js');
+	
+	$('.form_add_book').on('submit', function(e){
+    let formData = new FormData(this);
+    e.preventDefault();
+
+		
+			$.ajax({
+				type: "POST",
+				url: $(this).attr('action'),
+				data: formData,
+                cache: false,
+                contentType: false,
+            processData: false,
+				success: function(msg){
+					result.html(msg);
+				}
+			})
+            .done(function( msg ) {
+                alert( "Data Saved: " + msg );
+            });
+	});
+})
+
+// let resultSearch = document.querySelector('.result_search');
+
+// $(document).ready(function (){
+//     $('.search_place').on('keyup', function (e){
+//         let search = $('.search_place').val();
+//         $.ajax({
+//             type: "POST",
+//             url: 'controller.php',
+//             data: search,
+//             cache: false,
+//             contentType: false,
+//             processData: false,
+//             success: function(msg) {
+//                 resultSearch.classList.remove('hide');
+//                 resultSearch.innerHTML = msg;
+//             }
+//         })
+//         .done(function( msg ) {
+//             alert(msg);
+//         });
+//     })
 // });

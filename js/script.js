@@ -184,11 +184,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         cover.classList.remove('hide');
                         body.style.overflow = "hidden";
                         isPaused = true;
+                        console.log(index2);
 
                         break;
                     } else if (!modalMini[index2].classList.contains('hide')) { // Закрывает модальные окна
                         if (!listOfActives.classList.contains('hide') && !e.target.classList.contains('active') && modalAddBook.classList.contains('hide') && modalUpdateBook.classList.contains('hide') && modalDeleteBook.classList.contains('hide')) {
-                            console.log('wegwwrweet');
+                            console.log('wegwwrasadsdsweet');
                             opens[index].removeAttribute('style');
                             modalMini[index2].classList.add('hide');
                             cover.classList.add('hide');
@@ -201,7 +202,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
                             modalMini[index2].classList.add('hide');
                             cover.classList.add('hide');
                             body.removeAttribute('style');
-                        } 
+                        } else {
+                            modalMini[index2].classList.add('hide');
+                            opens[index].removeAttribute('style');
+                        }
                     }
                 }
             })
@@ -219,6 +223,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 } else if (listOfActives.classList.contains('hide')) {
                     modal[index].classList.add('hide');
                     cover.classList.add('hide');
+                    body.removeAttribute('style');
 
                     personalAdmin.removeAttribute('style');
                 } else {
@@ -307,8 +312,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if((e.target.tagName == "IMG" || e.target.tagName == "INPUT") && searchBlock.getAttribute('style') == null){
                 cover.classList.remove('hide');
                 searchBlock.style.zIndex = '1';
+                searchBlock.style.margin = '0';
                 searchBlock.style.position = 'absolute';
                 searchBlock.style.width = '100%';
+                searchBlock.style.height = '60%';
                 searchBlock.style.borderRadius = '0 0 20px 20px';
                 body.style.overflow = "hidden";
                 magnificentImg.classList.add('hide');
@@ -369,39 +376,48 @@ document.addEventListener("DOMContentLoaded", function(event) {
     function butSubmit() {
         let formBut = document.querySelectorAll('.form_bd button'),
             personalAdmin = document.querySelector('.personal_admin'),
+            personalUser = document.querySelector('.personal_user'),
+            jsDiv = document.querySelector('.js'),
             modalSignInBut = document.querySelector('.modal_sign_in form button');
 
-        for (let index = 0; index < formBut.length; index++) {
-            formBut[index].addEventListener('click', (e) => {
-                setTimeout(function() {
-                    getBooks();
-                }, 1000);
-            })
-        }
+        // for (let index = 0; index < formBut.length; index++) {
+        //     formBut[index].addEventListener('click', (e) => {
+        //         setTimeout(function() {
+        //             getBooks();
+        //         }, 1000);
+        //     })
+        // }
 
-        modalSignInBut.addEventListener('click', (e) => {
-            setTimeout(function() {
-                if (!personalAdmin.classList.contains('hide')) {        
-                        getBooks();
-                        setTimeout(function() {
-                            deleteBooks();
-                        }, 800);
+        // modalSignInBut.addEventListener('click', (e) => {
+        //     setTimeout(function() {
+        //         if (!personalAdmin.classList.contains('hide')) {        
+        //                 console.log('faegfsdf');
+        //                 getBooks();
+        //                 setTimeout(function() {
+        //                     deleteBooks();
+        //                 }, 800);
 
-                }
-            }, 1000); 
-        })
+        //         }
+        //     }, 1000); 
+        // })
     }
     butSubmit();
 
     
     function activesOfAdmin() {
-        let listOfActives = document.querySelector('.list_of_actives'),
+        let body = document.querySelector('body'),
+            listOfActives = document.querySelectorAll('.list_of_actives'),
             modals = document.querySelectorAll('.modal'),
             modalAddBook = document.querySelector('.modal_add_book'),
             modalUpdateBook = document.querySelector('.modal_update_book'),
+            modalDeleteBook = document.querySelector('.modal_delete_book'),
+            userCard = document.querySelector('.user_card'),
+            signsButtons = document.querySelector('.signs_buttons'),
+            personalAdmin = document.querySelector('.personal_admin'),
+            personalUser = document.querySelector('.personal_user'),
             cover = document.querySelector('.backCover');
 
-        listOfActives.addEventListener('click', (e) => {
+        listOfActives[0].addEventListener('click', (e) => {
             for (let index = 0; index < modals.length; index++) {
                 if (!modals[index].classList.contains('hide')) {
                     modals[index].classList.add('hide');
@@ -415,40 +431,87 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if (e.target.classList.contains('second_active')) {
                 modalUpdateBook.classList.remove('hide');
             }
+
+            if (e.target.classList.contains('third_active')) {
+                modalDeleteBook.classList.remove('hide');
+            }
+
+            if (e.target.classList.contains('fourth_active')) {
+                personalAdmin.classList.add('hide');
+                signsButtons.classList.remove('hide');
+                cover.classList.add('hide');
+                body.removeAttribute('style');
+                getBooks();
+            }
+        })
+
+        listOfActives[1].addEventListener('click', (e) => {
+            for (let index = 0; index < modals.length; index++) {
+                if (!modals[index].classList.contains('hide')) {
+                    modals[index].classList.add('hide');
+                }
+            }
+
+            if (e.target.classList.contains('first_active')) {
+                userCard.classList.remove('hide');
+            }
+
+            if (e.target.classList.contains('fourth_active')) {
+                personalUser.classList.add('hide');
+                signsButtons.classList.remove('hide');
+                cover.classList.add('hide');
+                body.removeAttribute('style');
+            }
         })
     }
     activesOfAdmin();
 
 
-
     function deleteBooks() {
         let deleteBookButs = document.querySelectorAll('.delete_book'),
-            idBook = document.querySelectorAll('.id_of_book');
+            idBook = document.querySelectorAll('.id_of_book'),
+            deleteBut = document.querySelector('.delete_book_but'),
+            deleteIdInput = document.querySelector('.delete_id');
+
             for (let i = 0; i < deleteBookButs.length; i++) {
                 deleteBookButs[i].addEventListener('click', (e) => {
                     console.log(idBook[i].innerHTML.replace(/\s/g, ''))
                     deleteBook(idBook[i].innerHTML.replace(/\s/g, ''));
-                    setTimeout(function() {
-                        getBooks();
-                    }, 100);
-                    setTimeout(function() {
-                        deleteBooks();
-                    }, 200);
                 })
             }       
+
+            deleteBut.addEventListener('click', (e) => {
+                let arr = deleteIdInput.ariaValueMax.split('/');
+
+                deleteBook(arr);
+            })
     }
 
-    
-
     async function deleteBook(id) {
-        await fetch(`http://api.books.ru/books/${id}`, {
-            method: 'DELETE'
-        });
+        if (!isNaN(id)) {
+            await fetch(`http://api.books.ru/books/${id}`, {
+                method: 'DELETE'
+            })
+            .then(async response => {
+                getBooks();
+            })
+        } else {
+            for (let index = 0; index < id.length; index++) {
+                await fetch(`http://api.books.ru/books/${id[index]}`, {
+                    method: 'DELETE'
+                })
+                .then(async response => {
+                    if (index == id.length - 1) {
+                        getBooks();                        
+                    }
+                })  
+            }
+        }
+        
     }
 
     async function getBooks(param) {
-        let res,
-            index = 0;
+        let res;
         
         if (param == null) {
             res = await fetch(`http://api.books.ru/books/`);
@@ -458,37 +521,41 @@ document.addEventListener("DOMContentLoaded", function(event) {
         let books = await res.json();
     
         document.querySelector('.books').innerHTML = '';
-        books.forEach((book) => {
+        for (let index = 0; index < books.length; index++) {
             document.querySelector('.books').innerHTML += `
             <div class="books_item">
                 <div class="books_item_img">
-                    <img src="uploadsCover/${book['cover']}" alt="">
+                    <img src="uploadsCover/${books[index]['cover']}" alt="">
                 </div>
 
                 <div class="book_info">
-                    <div class="id_of_book">
-                       
+                    <div class="id_of_book hide">
+                        ${books[index]['id_book']}
+                    </div>
+
+                    <div class="genre_of_book">
+                        ${books[index]['genre'].toLowerCase()}
                     </div>
 
                     <div class="name_of_book">
-                        ${book['genre']}
-                    </div>
-
-                    <div class="name_of_book">
-                        ${book['name_book']}
+                        ${books[index]['name_book']}
                     </div>
 
                     <div class="name_of_author">
-                        ${book['name_author']}
-                    </div>
-
-                    <div class="delete_book">
+                        <div>
+                            ${books[index]['name_author']}
+                        </div>
                     </div>
                 </div>
                 <div class="buts">
+                    <div class="delete_book hide">
+                        Удалить
+                    </div>
+
                     <div>
                         Читать
                     </div>
+                    
                     <div class="ab_book">
                         О книге
                     </div>
@@ -497,16 +564,79 @@ document.addEventListener("DOMContentLoaded", function(event) {
             `
 
             if (!document.querySelector('.personal_admin').classList.contains('hide')) {
-                
-                document.querySelectorAll('.id_of_book')[index].innerHTML = `${book['id_book']}`
+                document.querySelectorAll('.id_of_book')[index].classList.remove('hide');
 
-                document.querySelectorAll('.delete_book')[index].innerHTML = `Удалить`
-                index++;
+                document.querySelectorAll('.delete_book')[index].classList.remove('hide');
             }
-        })
+
+            if (index != books.length - 1 && books[index + 1]['id_book'] == books[index]['id_book']) {
+                let j = 1;
+                while (j != books.length - index && books[index + j]['id_book'] == books[index]['id_book']) {
+                    document.querySelectorAll('.name_of_author')[index].innerHTML += `
+                    <div>
+                        ${books[index + j]['name_author']}
+                    </div>
+                    `;
+                    j++;
+                }
+
+                index += j - 1;
+            }
+        }
+
+
+        let aboutBook = document.querySelectorAll('.ab_book'),
+            idBook = document.querySelectorAll('.id_of_book');
+        for (let index = 0; index < aboutBook.length; index++) {
+            aboutBook[index].addEventListener('click', (e) => {
+                console.log(idBook[index].innerHTML.trim());
+                getBooksModal(idBook[index].innerHTML.trim());
+            })
+        }
+
+        if (!document.querySelector('.personal_admin').classList.contains('hide')) {
+            deleteBooks();
+        }
     }
 
     getBooks();
+
+    async function getBooksModal(param) {
+        let res;
+        
+        res = await fetch(`http://api.books.ru/books/${param}`);
+        
+        let books = await res.json();
+        console.log(books);
+
+        for (let index = 0; index < books.length; index++) {
+            document.querySelector('.book_card_info').innerHTML = `
+                <div class="book_card_img">
+                    <img src="uploadsCover/${books[index]['cover']}" alt="">
+                </div>
+
+                <div>
+                    <h1 class="book_card_info_name">${books[index]['name_book']}</h1>
+                    <div class="book_card_info_author">${books[index]['name_author']}</div>
+                    <div class="book_card_info_genre">${books[index]['genre']}</div>
+                    <div class="book_card_info_year">${books[index]['year_of_release']}</div>
+                    <div class="book_card_info_description">${books[index]['description']}</div>
+                </div>
+            `
+
+            if (index != books.length - 1 && books[index + 1]['id_book'] == books[index]['id_book']) {
+                let j = 1;
+                while (books[index + j]['id_book'] == books[index]['id_book']) {
+                    document.querySelector('.book_card_info_author').innerHTML += `,&nbsp
+                        ${books[index + j]['name_author']}
+                    `;
+                    j++;
+                }
+
+                index += j - 1;
+            }
+        }
+    }
 
 
 //    async function getBooksSortGenre(genre) {

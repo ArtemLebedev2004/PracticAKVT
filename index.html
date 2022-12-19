@@ -60,15 +60,13 @@
                     </div>
                 </div>
                 
-                <div class="personal personal_user hide">
-                    <div class="personal_text">Админ</div>
+                <div class="open open_list_of_actives_user personal personal_user hide">
+                    <div class="personal_text">Личный кабинет</div>
                     <div class="personal_arrow">
                         <img src="icons/down_arrow.png" alt="">
                     </div>
-                    <div class="list_of_actives hide">
-                        <div class="active first_active">Добавить книгу</div>
-                        <div class="active second_active">Обновить книгу</div>
-                        <div class="active third_active">Удалить книгу</div>
+                    <div class="modal_mini open_list_of_actives_user list_of_actives list_of_actives_user hide">
+                        <div class="active first_active">Профиль</div>
                         <div class="active fourth_active">Выйти</div>
                     </div>
                 </div>
@@ -140,17 +138,8 @@
                         <div>
                             Роман
                         </div>
-
-                        <!-- <div>
-                            Комедии
-                        </div>
-
-                        <div>
-                            Пьесы
-                        </div> -->
                     </div>
                 </div>
-                
             </div>
 
             <div class="books">
@@ -182,7 +171,7 @@
                 <h1>Регистрация</h1>
                 <input type="text" name="sign_up" class="hide">
                 <div class="form_item">
-                    <input type="text" placeholder="ФИО" name="fio" class="model_input_item fio" required>
+                    <input type="text" placeholder="Имя" name="fio" class="model_input_item fio" required>
                     <div class="warning warning_name hide">Это ФИО уже существует</div>
                 </div>
 
@@ -233,7 +222,7 @@
             <input type="text" name="sign_in" class="hide">
             <div class="form_item">
                 <input type="text" placeholder="Логин" name="login" class="model_input_item login">
-                <div class="warning warning_password hide">Такого логина не существует</div>
+                <div class="warning warning_login hide">Такого логина не существует</div>
             </div>
             <div class="form_item">
                 <input type="password" name="password" placeholder="Пароль" class="model_input_item password">
@@ -253,7 +242,7 @@
 
     <!-- Модальное окно добавления книги -->
     <div class="modal modal_add_book hide">
-        <form action="addBook.php" class="form_bd form_add_book">
+        <form action="controller.php" class="form_bd form_add_book">
             <h1>Добавление книги</h1>
             <input type="text" name="add_book" class="hide">
             <input type="text" placeholder="Название" name="name" class="model_input_item name" required>
@@ -300,6 +289,10 @@
 
     <!-- Модальное окно удаления -->
     <div class="modal modal_delete_book hide">
+            <h1>Удаление книги</h1>
+            <input type="text" placeholder="ID (если несколько, то через знак '/')" name="id" class="delete_id" required>
+
+            <button type="submit" class="add_book_but delete_book_but">Удалить книгу (-и)</button>
         <div class="close_modal">
             <img src="icons/close.png" alt="" class="close">
         </div>
@@ -318,6 +311,23 @@
                 <div class="book_card_info_genre"></div>
                 <div class="book_card_info_year"></div>
                 <div class="book_card_info_description"></div>
+            </div>
+        </div>
+
+        <div class="close_modal">
+            <img src="icons/close.png" alt="" class="close">
+        </div>
+    </div>
+
+    <!-- Карточка пользователя -->
+    <div class="modal open_user_card user_card hide">
+        <div class="user_card_info">
+            <div class="user_card_img"></div>
+
+            <div>
+                <h1 class="user_card_info_name"></h1>
+                <div class="user_card_info_login"></div>
+                <div class="user_card_info_email"></div>
             </div>
         </div>
 

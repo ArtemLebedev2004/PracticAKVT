@@ -1,9 +1,17 @@
 <?php
 require 'view.php';
 
-function signUp($date, $password_confirm) {
-    $isReg = true;
+function signUp($data, $dataFiles) {
+    $date = [
+        "fullName" => $data['fio'],
+        "login" => $data['login'],
+        "mail" => $data['mail'],
+        "password" => $data['password'],
+        "avatar" => $dataFiles['avatar']
+    ];
 
+    $isReg = true;
+    $countFalse = 0;
     signUpView();
     $connect = new PDO('mysql:host=localhost; dbname=data_of_books', 'root','');
     $sql = "SELECT * FROM `users`";
@@ -13,29 +21,32 @@ function signUp($date, $password_confirm) {
     for ($index = 0; $index < count($users); $index++) {
         if ($date['fullName'] == $users[$index]['full_name']) {
             $isReg = false;
+            $countFalse++;
             warningName($isReg);
-        } else {
-            warningName(true);
+        } else if ($isReg){
+            warningName($isReg);
         }
 
         if ($date['login'] == $users[$index]['login']) {
             $isReg = false;
+            $countFalse++;
             warningLogin($isReg);
-        } else {
-            warningLogin(true);
+        } else if ($isReg){
+            warningLogin($isReg);
         }
 
         if ($date['mail'] == $users[$index]['email']) {
             $isReg = false;
+            $countFalse++;
             warningMail($isReg);
-        } else {
-            warningMail(true);
+        } else if ($isReg){
+            warningMail($isReg);
         }
 
         
         
-        if (!$isReg) {
-            if ($password_confirm != $date['password']) {
+        if ($countFalse == 3 || $index == count($users) - 1) {
+            if ($_POST['password_confirm'] != $date['password']) {
                 $isReg = false;
                 warningPassword($isReg);
             } else {
@@ -48,24 +59,8 @@ function signUp($date, $password_confirm) {
             } else {
                 warningFile(true);
             }
-
-            isReg($isReg);
 
             break;
-        } else if ($index == count($users) - 1) {
-            if ($password_confirm != $date['password']) {
-                $isReg = false;
-                warningPassword($isReg);
-            } else {
-                warningPassword(true);
-            }
-    
-            if ($date['avatar']['name'] == '') {
-                $isReg = false;
-                warningFile($isReg);
-            } else {
-                warningFile(true);
-            }
         }
     }
 
@@ -84,85 +79,66 @@ function signUp($date, $password_confirm) {
         $sql = "INSERT INTO `users` (full_name, login, email, avatar, password) VALUES (:fullName, :login, :mail, :avatar, :password)";
         $statment = $connect->prepare($sql);
         $result = $statment->execute($date);
+
+        signUpComplete();
+        signComplete($date['fullName'], $date['login'], $date['mail'], $date['avatar']);
     }
 }
 
 
-function signIn() {
+function signIn($data) {
+    signInView();
+
     $date = [
-        "login" => $_POST['login'],
-        "password" => $_POST['password'],
+        "login" => $data['login'],
+        "password" => $data['password'],
     ];
     
     if ($date['login'] == "admin_books_ru" && $date['password'] == "admin_books_ru3548684352423545") {
-        ?>
-        <script>
-            let personalAdmin = document.querySelector('.personal_admin'),
-                signsButtons = document.querySelector('.signs_buttons');    
-            signsButtons.classList.add('hide');
-            personalAdmin.classList.remove('hide');
+        signInAdmin();
+    } else {
+        $isReg = true;
 
-            // let deleteBookButs = $('.delete_book');
-            // let idBook = $('.id_of_book');
-            // for (let i = 0; i < deleteBookButs.length; i++) {
-            //     deleteBookButs[i].addEventListener('click', (e) => {
-            //         console.log(idBook[i].innerHTML.replace(/\s/g, ''))
-            //         deleteBook(idBook[i].innerHTML.replace(/\s/g, ''));
-            //     })
-            // }
-    
-            // async function deleteBook(id) {
-            //     await fetch(`http://api.books.ru/books/${id}`, {
-            //         method: 'DELETE'
-            //     });
-            // }
-    
-            // $(document).on('scroll', () => {
-            //     if (!$('.personal').hasClass('hide')) {
-            //         $('.id_of_book').removeClass('hide');
-            //         $('.delete_book').removeClass('hide');
-            //     }
-            // })
-    
-            // $(document).on('click', () => {
-            //     if (!$('.personal').hasClass('hide')) {
-            //         $('.id_of_book').removeClass('hide');
-            //         $('.delete_book').removeClass('hide');
-            //     }
-            // })
-    
-            // $('.personal').on('click', () => {
-            //     if (!$('.list_of_actives').hasClass("hide")) {
-            //         $('.list_of_actives').addClass('hide');
-            //         $('.backCover').addClass('hide');    
-            //     } else {
-            //         $('.list_of_actives').removeClass('hide');
-            //         $('.backCover').removeClass('hide');
-            //     }
-            // })
-    
-            // $('.backCover').on('click', () => {
-            //         $('.list_of_actives').addClass('hide');
-            //         $('.modal_add_book').addClass('hide');
-            //         $('.modal_update_book').addClass('hide');
-            //         $('.backCover').addClass('hide'); 
-            // })
-    
-            // $('.first_active').on('click', () => {
-            //         $('.list_of_actives').addClass('hide');
-            //         $('.modal_add_book').removeClass('hide');
-            //         $('.backCover').removeClass('hide');
-            // })
-    
-            // $('.second_active').on('click', () => {
-            //         $('.list_of_actives').addClass('hide');
-            //         $('.modal_update_book').removeClass('hide');
-            //         $('.backCover').removeClass('hide');
-            // })
-    
+        $connect = new PDO('mysql:host=localhost; dbname=data_of_books', 'root','');
+        $sql = "SELECT * FROM `users`";
+        $statment = $connect->prepare($sql);
+        $statment->execute();
+        $users = $statment->fetchAll(PDO::FETCH_ASSOC);
+
+        for ($index = 0; $index < count($users); $index++) {
+            if ($date['login'] == $users[$index]['login']) {
+                warningLoginSignIn($isReg);           
+                    
+                if ($date['password'] == $users[$index]['password']) {
+                    warningPasswordSignIn($isReg);
+                } else {
+                    $isReg = false;
+                    warningPasswordSignIn($isReg);                
+                }
+
+                break;
+            } else {
+                if ($index == count($users) - 1) {
+                    $isReg = false;
+                    warningLoginSignIn($isReg);
+                }
+            }
+
             
-        </script>
-        <?php
+        }
+
+
+        if ($isReg) {
+            $userLogin = $date['login'];
+            $sql = "SELECT * FROM `users` WHERE `login` = '$userLogin'";
+            $statment = $connect->prepare($sql);
+            $statment->execute();
+            $users = $statment->fetchAll(PDO::FETCH_ASSOC);
+
+            signInUser();
+            signComplete($users[0]['full_name'], $users[0]['login'], $users[0]['email'], $users[0]['avatar']);
+
+        }
     }
     
     // function uploadImage($image) {
@@ -184,24 +160,23 @@ function signIn() {
 }
 
 
-function updateBook($date) {
-    print_r($_FILES);
+function updateBook($data, $dataFiles) {
+    $date = [
+        "id" => $data['id'],
+        "nameBook" => $data['name_book'],
+        "author" => $data['author'],
+        "description" => $data['description'],
+        "yearOfRelease" => $_POST['year_of_release'],
+        "genre" => $data['genre'],
+        "cover" => $dataFiles['cover']
+    ];
+
     $connect = new PDO('mysql:host=localhost; dbname=data_of_books', 'root','');
 
     $id_book = $_POST['id'];
 
-    $date = [
-        "name" => $_POST['name_book'],
-        "description" => $_POST['description'],
-        "yearOfRelease" => $_POST['year_of_release'],
-        "genre" => $_POST['genre'],
-        "cover" => $_FILES['cover'],
-        'author' => $_POST['author']
-    ];
-
-
-    if ($date['name'] !== "") {
-        $name_book = $date['name'];
+    if ($date['nameBook'] !== "") {
+        $name_book = $date['nameBook'];
         $sql = "UPDATE `books` SET `name_book` = '$name_book' WHERE `books`.`id_book` = $id_book;";
         $statment = $connect->prepare($sql);
         $result = $statment->execute();
@@ -232,7 +207,6 @@ function updateBook($date) {
 
 
     if ($date['cover']['name'] !== "") {
-        echo "fef";
         $sql = "UPDATE `books` SET `cover` = '' WHERE `id_book` = '$id_book'";
         $statment = $connect->prepare($sql);
         $result = $statment->execute();
@@ -307,10 +281,135 @@ function updateBook($date) {
             }
         }
     }
-
+    getBooksAndDeleteInViewPHP();
+    
     // $author = $date['author'];
     // $sql = "UPDATE `authors` SET `name_author` = '$author' WHERE `books`.`id_book` = $id_book;";
     // $result = $statment->execute();
     // $authorId = $connect->lastInsertId();
+}
+
+
+function addBook($data, $dataFiles) {
+    $date = [
+        "name" => $data['name'],
+        "description" => $data['description'],
+        "yearOfRelease" => $data['year_of_release'],
+        "genre" => $data['genre'],
+        "cover" => $dataFiles['cover']
+    ];
+    
+    $dateAuthor = [
+        'author' => $_POST['author']
+    ];
+    
+    function uploadImage($image) {
+        $extension = pathinfo($image['name'], PATHINFO_EXTENSION);
+        $filename = uniqid()."." . $extension;
+        move_uploaded_file($image['tmp_name'], "uploadsCover/" . $filename);
+        return $filename;
+    }
+    
+    $filename = uploadimage($_FILES['cover']);
+    
+    $date["cover"] = $filename;
+    
+    $connect = new PDO('mysql:host=localhost; dbname=data_of_books', 'root','');
+    $sql = "INSERT INTO `books` (name_book, description, year_of_release, genre, cover) VALUES (:name, :description, :yearOfRelease, :genre, :cover)";
+    $statment = $connect->prepare($sql);
+    $result = $statment->execute($date);
+    $bookId = $connect->lastInsertId();
+    echo $bookId;
+    
+    $sql = "INSERT INTO `authors` (name_author) VALUES (:author)";
+    $statment = $connect->prepare($sql);
+    $result = $statment->execute($dateAuthor);
+    $authorId = $connect->lastInsertId();
+    echo $authorId;
+    
+    $dateId = [
+        'id_book' => $bookId,
+        'id_author' => $authorId
+    ];
+    
+    $sql = "INSERT INTO `authors_and_books` (id_book, id_author) VALUES (:id_book, :id_author)";
+    $statment = $connect->prepare($sql);
+    $result = $statment->execute($dateId);
+
+    getBooksAndDeleteInViewPHP();
+}
+
+function search($data) {
+    if (!empty($data)) {
+        $search = $data;
+        $search = mb_eregi_replace("[^a-zа-яё0-9 ]", '', $search);
+
+        $connect = new PDO("mysql:host=localhost; dbname=data_of_books", "root", "");
+        
+        function resultAuthors($connect, $search) {
+            ?>
+            <div class="result_search_authors">
+                <div class="header_in_search header_in_search_authors">
+                    Авторы
+                </div>
+            <?php
+            $authors = $connect->prepare("SELECT `name_author` FROM `authors`");
+            $authors->execute();
+            $resultAuthors = $authors->fetchAll(PDO::FETCH_ASSOC);
+            $countTrue = 0;
+
+            for ($i = 0; $i < count($resultAuthors); $i++) {
+                if (strpos(mb_strtolower(str_replace(' ', '', $resultAuthors[$i]['name_author'])), mb_strtolower($search)) > -1) {
+                    searchInView('authors', $resultAuthors[$i]['name_author']);
+                    $countTrue = 1;
+                }
+
+                if ($i === count($resultAuthors) - 1 && $countTrue < 1) {
+                    searchInView('not found');
+                }
+            }
+            ?>
+            </div>
+            <?php
+        }
+        
+
+        function resultBooks($connect, $search) {
+            ?>
+            <div class="result_search_books">
+            <div class="header_in_search header_in_search_books">
+                Книги
+            </div>
+            <?php
+            $books = $connect->prepare("SELECT `name_book` FROM `books`");
+            $booksId = $connect->prepare("SELECT `id_book` FROM `books`");
+            $books->execute();
+            $booksId->execute();
+            $resultBooks = $books->fetchAll(PDO::FETCH_ASSOC);
+            $resultBooksId = $booksId->fetchAll(PDO::FETCH_ASSOC);
+            $countTrue = 0;
+
+            for ($i = 0; $i < count($resultBooks); $i++) {
+                if (strpos(mb_strtolower(str_replace(' ', '', $resultBooks[$i]['name_book'])), mb_strtolower($search)) > -1) {
+                    searchInView('books', $resultBooks[$i]['name_book'], $resultBooksId[$i]['id_book']);
+                    $countTrue = 1;
+
+                }
+
+                if ($i === count($resultBooks) - 1 && $countTrue < 1) {
+                    searchInView('not found');
+                }
+            }
+            
+            ?>
+            </div>
+            <?php
+        }
+
+        resultAuthors($connect, $search);
+        resultBooks($connect, $search);
+
+        searchInView();
+    }
 }
 ?>
