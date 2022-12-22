@@ -3,7 +3,7 @@ let id = null;
 
 
 async function getPost() {
-    let res = await fetch("http://MyOwnThird.ru/posts");
+    let res = await fetch("http://LebedevRP31Api.ru/posts");
     let posts = await res.json();
     // console.log(posts[0].title);
 
@@ -32,7 +32,7 @@ async function addPost() {
     formData.append('title', title);
     formData.append('body', body);
 
-    const res = await fetch("http://MyOwnThird.ru/posts", {
+    const res = await fetch("http://LebedevRP31Api.ru/posts", {
         method: "POST",
         body: formData
     });
@@ -48,7 +48,7 @@ async function addPost() {
 
 
 async function removePost(id){
-    const res = await fetch(`http://MyOwnThird.ru/posts/${id}`, {
+    const res = await fetch(`http://LebedevRP31Api.ru/posts/${id}`, {
         method: 'DELETE'
         });
         const data = await res.json()
@@ -72,7 +72,7 @@ async function updatePost(){
         title: title,
         body: body
     }
-    const res =  await fetch("http://MyOwnThird.ru/posts/${id}", {
+    const res =  await fetch("http://LebedevRP31Api.ru/posts/${id}", {
         method: 'PATCH',
         body: JSON.stringify(data)
     });
