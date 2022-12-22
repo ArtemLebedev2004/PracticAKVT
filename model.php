@@ -207,6 +207,18 @@ function updateBook($data, $dataFiles) {
 
 
     if ($date['cover']['name'] !== "") {
+        $sql = "SELECT `cover` FROM `books` WHERE `id_book` = '$id_book'";
+        $statment = $connect->prepare($sql);
+        $statment->execute();
+        $result = $statment->fetchAll(PDO::FETCH_ASSOC);
+        $files = glob('uploadsCover/*');
+        foreach($files as $file) { // iterate files
+            $files = explode('/', $file);
+            if($files[1] === $result[0]['cover']) {
+                unlink($file); // delete file
+            }
+        }
+
         $sql = "UPDATE `books` SET `cover` = '' WHERE `id_book` = '$id_book'";
         $statment = $connect->prepare($sql);
         $result = $statment->execute();
@@ -319,13 +331,11 @@ function addBook($data, $dataFiles) {
     $statment = $connect->prepare($sql);
     $result = $statment->execute($date);
     $bookId = $connect->lastInsertId();
-    echo $bookId;
     
     $sql = "INSERT INTO `authors` (name_author) VALUES (:author)";
     $statment = $connect->prepare($sql);
     $result = $statment->execute($dateAuthor);
     $authorId = $connect->lastInsertId();
-    echo $authorId;
     
     $dateId = [
         'id_book' => $bookId,

@@ -164,7 +164,7 @@ function signComplete($name, $login, $mail, $avatar) {
         <script>
             $('.user_card_info').html(`\
                 <div class="user_card_img"><img src="uploads/<?php echo $avatar ?>" alt="" class="close"></div>\
-                <div>\
+                <div class="user_card_without_img">\
                     <h1 class="user_card_info_name"><?php echo $name ?></h1>\
                     <div class="user_card_info_login">Ваш логин: <?php echo $login ?></div>\
                     <div class="user_card_info_email">Ваша почта: <?php echo $mail ?></div>\
@@ -251,7 +251,7 @@ function searchInView($param = '', $name = '', $id = '') {
                     <img src="uploadsCover/${books[index]['cover']}" alt="">
                 </div>
 
-                <div>
+                <div class="book_card_without_img">
                     <h1 class="book_card_info_name">${books[index]['name_book']}</h1>
                     <div class="book_card_info_author">${books[index]['name_author']}</div>
                     <div class="book_card_info_genre">${books[index]['genre']}</div>
@@ -324,11 +324,7 @@ function searchInView($param = '', $name = '', $id = '') {
                     </div>
                     `
 
-                    if (!document.querySelector('.personal_admin').classList.contains('hide')) {
-                        document.querySelectorAll('.id_of_book')[index].classList.remove('hide');
-
-                        document.querySelectorAll('.delete_book')[index].classList.remove('hide');
-                    }
+                    
 
                     if (index != books.length - 1 && books[index + 1]['id_book'] == books[index]['id_book']) {
                         let j = 1;
@@ -343,6 +339,31 @@ function searchInView($param = '', $name = '', $id = '') {
 
                         index += j - 1;
                     }
+                }
+                if (!document.querySelector('.personal_admin').classList.contains('hide')) {
+                    for (let index = 0; index < document.querySelectorAll('.id_of_book').length; index++) {
+                        document.querySelectorAll('.id_of_book')[index].classList.remove('hide');
+                        document.querySelectorAll('.delete_book')[index].classList.remove('hide');
+                    }
+                }
+                console.log(1111)
+
+                let aboutBook = document.querySelectorAll('.ab_book'),
+                    bookCard = document.querySelector('.book_card'),
+                    idBook = document.querySelectorAll('.id_of_book'),
+                    body = document.querySelector('body'),
+                    cover = document.querySelector('.backCover');
+
+                for (let index = 0; index < aboutBook.length; index++) {
+                    console.log(2)
+                    aboutBook[index].addEventListener('click', (e) => {
+                        console.log(idBook[index].innerHTML.trim());
+                        getBooksModal(idBook[index].innerHTML.trim());
+                        bookCard.classList.remove('hide');
+                        cover.classList.remove('hide');
+                        body.style.overflow = "hidden";
+                        console.log(3)
+                    })
                 }
 
                 if (!document.querySelector('.personal_admin').classList.contains('hide')) {
@@ -386,6 +407,43 @@ function searchInView($param = '', $name = '', $id = '') {
                     getBooks();
                 })
             }
+
+            async function getBooksModal(param) {
+        let res;
+        
+        res = await fetch(`http://api.books.ru/books/${param}`);
+        
+        let books = await res.json();
+        console.log(books);
+
+        for (let index = 0; index < books.length; index++) {
+            document.querySelector('.book_card_info').innerHTML = `
+                <div class="book_card_img">
+                    <img src="uploadsCover/${books[index]['cover']}" alt="">
+                </div>
+
+                <div class="book_card_without_img">
+                    <h1 class="book_card_info_name">${books[index]['name_book']}</h1>
+                    <div class="book_card_info_author">${books[index]['name_author']}</div>
+                    <div class="book_card_info_genre">${books[index]['genre']}</div>
+                    <div class="book_card_info_year">${books[index]['year_of_release']}</div>
+                    <div class="book_card_info_description">${books[index]['description']}</div>
+                </div>
+            `
+
+            if (index != books.length - 1 && books[index + 1]['id_book'] == books[index]['id_book']) {
+                let j = 1;
+                while (books[index + j]['id_book'] == books[index]['id_book']) {
+                    document.querySelector('.book_card_info_author').innerHTML += `,&nbsp
+                        ${books[index + j]['name_author']}
+                    `;
+                    j++;
+                }
+
+                index += j - 1;
+            }
+        }
+    }
         </script> 
         <?php
     }
@@ -462,6 +520,26 @@ function getBooksAndDeleteInViewPHP() {
                     }
                 }
 
+                console.log(1111)
+
+                let aboutBook = document.querySelectorAll('.ab_book'),
+                    bookCard = document.querySelector('.book_card'),
+                    idBook = document.querySelectorAll('.id_of_book'),
+                    body = document.querySelector('body'),
+                    cover = document.querySelector('.backCover');
+
+                for (let index = 0; index < aboutBook.length; index++) {
+                    console.log(2)
+                    aboutBook[index].addEventListener('click', (e) => {
+                        console.log(idBook[index].innerHTML.trim());
+                        getBooksModal(idBook[index].innerHTML.trim());
+                        bookCard.classList.remove('hide');
+                        cover.classList.remove('hide');
+                        body.style.overflow = "hidden";
+                        console.log(3)
+                    })
+                }
+
                 deleteBooks();
             }
 
@@ -485,6 +563,43 @@ function getBooksAndDeleteInViewPHP() {
                     getBooks();
                 })
             }
+
+            async function getBooksModal(param) {
+        let res;
+        
+        res = await fetch(`http://api.books.ru/books/${param}`);
+        
+        let books = await res.json();
+        console.log(books);
+
+        for (let index = 0; index < books.length; index++) {
+            document.querySelector('.book_card_info').innerHTML = `
+                <div class="book_card_img">
+                    <img src="uploadsCover/${books[index]['cover']}" alt="">
+                </div>
+
+                <div class="book_card_without_img">
+                    <h1 class="book_card_info_name">${books[index]['name_book']}</h1>
+                    <div class="book_card_info_author">${books[index]['name_author']}</div>
+                    <div class="book_card_info_genre">${books[index]['genre']}</div>
+                    <div class="book_card_info_year">${books[index]['year_of_release']}</div>
+                    <div class="book_card_info_description">${books[index]['description']}</div>
+                </div>
+            `
+
+            if (index != books.length - 1 && books[index + 1]['id_book'] == books[index]['id_book']) {
+                let j = 1;
+                while (books[index + j]['id_book'] == books[index]['id_book']) {
+                    document.querySelector('.book_card_info_author').innerHTML += `,&nbsp
+                        ${books[index + j]['name_author']}
+                    `;
+                    j++;
+                }
+
+                index += j - 1;
+            }
+        }
+    }
         </script>
     <?php
 }

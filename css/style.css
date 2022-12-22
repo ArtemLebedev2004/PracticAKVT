@@ -642,10 +642,17 @@ header {
     font-size: 1.3vw;
     padding: 10px 0;
     margin-top: 15px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.books_item .buts div:hover {
+    background-color:white;
+
 }
 
 .modal {
-    position: absolute;
+    position: fixed;
     z-index: 1;
     margin: auto;
     top: 0;
@@ -675,6 +682,7 @@ header {
 
 .modal_add_book form input {
     margin-bottom: 20px;
+    height: 8%;
 }
 
 .modal_add_book form h1 {
@@ -699,6 +707,7 @@ header {
 
 .modal_update_book form input {
     margin-bottom: 20px;
+    height: 8%;
 }
 
 .modal_update_book form h1 {
@@ -923,31 +932,46 @@ form .text span:hover {
 }
 
 .book_card, .user_card {
-    position: absolute;
-    margin: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     width: 70%;
     height: 80%;
     z-index: 1;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    align-items: start;
 }
 
 .book_card_img {
-    width: 30%;
+    width: 40%;
     height: 80%;
     display: flex;
-flex-direction: column;
-align-items: start;
+    flex-direction: column;
+    align-items: start;
+}
+
+.book_card_without_img {
+    width: 64%;
+    height: 387px;
+    margin-top: 200px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+}
+
+.book_card_img {
+    background-color: white;
+    border-radius: 0 0 20px 20px;
+    height: 380px;
+    width: 285px;
 }
 
 .book_card_img img{
-    width: 100%;
+    width: 65%;
     border-radius: 20px;
+    outline: 20px solid #CCDAFF;
+    margin: 40px auto;
 }
 
 .book_card_info, .user_card_info {
@@ -959,7 +983,7 @@ align-items: start;
 
 display: flex;
 justify-content: space-between;
-align-items: center;
+padding: 0 40px;
 }
 
 .book_card_info div, .book_card_info h1 {
@@ -969,6 +993,37 @@ align-items: center;
 .book_card_info:nth-child(3) {
     font-size: 20px;
 }
+
+.book_card .close_modal {
+}
+
+
+.user_card_img {
+    background-color: white;
+    border-radius: 0 0 20px 20px;
+    height: 380px;
+    width: 285px;
+    padding: 40px;
+}
+
+.user_card_img img{
+    width: 65%;
+    border-radius: 20px;
+    outline: 20px solid #CCDAFF;
+}
+
+.user_card_without_img {
+    width: 64%;
+    height: 387px;
+    margin-top: 200px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+}
+
 
 .backCover {
     position: fixed;

@@ -214,17 +214,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // Закрывает модальные окна
         for (let index = 0; index < closeModal.length; index++) {
             closeModal[index].addEventListener('click', (e) => {
-                if (!bookCard.classList.contains('hide')) {
+                if (!bookCard.classList.contains('hide') && resultSearch.classList.contains('hide')) {
+                    cover.classList.add('hide');
+                    body.removeAttribute('style');
+                    modal[index].classList.add('hide');
+                } else if (!bookCard.classList.contains('hide')) {
                     cover.removeAttribute('style');
                     modal[index].classList.add('hide');
-                    getBooks();
                 } else if (!listOfActives.classList.contains('hide')) {
                     modal[index].classList.add('hide');
                 } else if (listOfActives.classList.contains('hide')) {
                     modal[index].classList.add('hide');
                     cover.classList.add('hide');
                     body.removeAttribute('style');
-
                     personalAdmin.removeAttribute('style');
                 } else {
                     console.log("fdsf");
@@ -244,9 +246,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         cover.addEventListener('click', (e) => {
             
-            if (!bookCard.classList.contains('hide')) {
+            if (!bookCard.classList.contains('hide') && resultSearch.classList.contains('hide')) {
+                cover.classList.add('hide');
+                body.removeAttribute('style');
+                modal[index].classList.add('hide');
+            } else if (!bookCard.classList.contains('hide')) {
                 cover.removeAttribute('style');
-                getBooks();
+
             } else {
                 isPaused = false;
                 cover.removeAttribute('style');
@@ -342,7 +348,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if (!bookCard.classList.contains('hide')) {
                 cover.removeAttribute('style');
                 bookCard.classList.add('hide');
-                getBooks();
             } else {
                 cover.classList.add('hide');
                 body.removeAttribute('style');
@@ -586,11 +591,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
         let aboutBook = document.querySelectorAll('.ab_book'),
+            bookCard = document.querySelector('.book_card'),
             idBook = document.querySelectorAll('.id_of_book');
         for (let index = 0; index < aboutBook.length; index++) {
             aboutBook[index].addEventListener('click', (e) => {
                 console.log(idBook[index].innerHTML.trim());
                 getBooksModal(idBook[index].innerHTML.trim());
+                bookCard.classList.remove('hide');
+                cover.classList.remove('hide');
+                body.style.overflow = "hidden";
             })
         }
 
@@ -615,7 +624,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     <img src="uploadsCover/${books[index]['cover']}" alt="">
                 </div>
 
-                <div>
+                <div class="book_card_without_img">
                     <h1 class="book_card_info_name">${books[index]['name_book']}</h1>
                     <div class="book_card_info_author">${books[index]['name_author']}</div>
                     <div class="book_card_info_genre">${books[index]['genre']}</div>
