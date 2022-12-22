@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row post-list">
+        </div>
+
+        <div class="form">
+            <h2>Добавление поста</h2>
+            <label for="title">Заголовок поста</label> <br>
+            <input type="text" id="title">
+            <br><br>
+            <label for="body">Содержимое</label> <br>
+            <textarea type="text" id="body"></textarea>
+            <br>
+            <button type="submit" onclick="addPost()">Добавить пост</button>
+        </div>
+    </div>
+    <br><br><br>
+    <div>
+        <h2>
+            Редактирование поста
+        </h2>
+        <div>
+            <label for="">Заголовок поста</label>
+            <input type="text" id="title-edit">
+        </div>
+        <div>
+            <label for="">Содержимое поста</label>
+            <textarea type="password" id="body-edit"></textarea>
+        </div>
+        <button onclick="updatePost()">Обновить пост</button>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
