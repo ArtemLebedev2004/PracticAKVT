@@ -39,9 +39,7 @@ $(document).ready(function (){
                 
             }
         })
-        .done(function( msg ) {
-            alert( "Data Saved: " + msg );
-        });
+        
     })
 });
 
@@ -63,9 +61,7 @@ $(document).ready(function() {
 					}
 				}
 			})
-            .done(function( msg ) {
-                alert( "Data Saved: " + msg );
-            });
+            
 		 } else {
 			// result.html('');
 			// result.fadeOut(100);
@@ -92,9 +88,7 @@ $(document).ready(function() {
 					result.html(msg);
 				}
 			})
-            .done(function( msg ) {
-                alert( "Data Saved: " + msg );
-            });
+          
 	});
 })
 
